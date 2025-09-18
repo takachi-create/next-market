@@ -1,0 +1,30 @@
+方法A：HTTPS認証をクリーンに入れ直す（Windows想定）
+
+VS Code からサインアウト
+
+左下のアカウントアイコン → 「サインアウト」
+
+コマンドパレット（Ctrl+Shift+P）→ 「GitHub Authentication: Sign out」 も実行
+
+Windowsの資格情報を削除
+
+管理者でなくてOK。PowerShell/ターミナルで：
+
+git credential-manager-core erase https://github.com
+git credential-manager erase https://github.com   # 古いGCMが入っている場合
+
+
+うまく消えない時は「コントロール パネル → 資格情報マネージャー → 汎用資格情報」で
+git:https://github.com や github.com を削除
+
+ブラウザのGitHubも一旦ログアウト
+
+VS Codeの再ログインがブラウザ経由になるので、正しいアカウントだけログイン状態にしておく
+
+VS Code を再起動 → 再ログイン
+
+左下アカウント → 「サインイン」 → GitHub を選択
+
+ブラウザが開いたら takachi-create でログイン
+
+リモートURLとブランチ確認
