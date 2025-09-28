@@ -5,8 +5,8 @@ import {ItemModel} from "../../../utils/schemaModels"
 export async function GET() {
     try{
         await connectDB();
-        const items = await ItemModel.find();//すべてのアイテムを取得
-        return NextResponse.json({ message: "アイテム取得成功(ALL)", data: items });//成功メッセージとデータを返す
+        const allitems = await ItemModel.find();//すべてのアイテムを取得
+        return NextResponse.json({ message: "アイテム取得成功(ALL)", allitems: allitems });//成功メッセージとデータを返す
     }catch{
         return NextResponse.json({ message: "アイテム取得失敗(ALL)" });//失敗メッセージを返す
     }
