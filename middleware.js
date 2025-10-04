@@ -2,14 +2,14 @@ import { NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 
 // ミドルウェア関数
-export async function middleware(request) {
-    const token = "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImR1bW15QG1haWwuY29tIiwiZXhwIjoxNzU4MjUyNjMwfQ.uRbntBs7ULKMqjrhhedaDXPDhviSmiR4jwZ-H1zCF_g"//await request.headers.get("authorization")?.split(" ")[1];//リクエストヘッダーからトークンを取得
+export async function middleware(request) {//
+    const token = await request.headers.get("authorization")?.split(" ")[1];//リクエストヘッダーからトークンを取得
     if (!token) {
         return NextResponse.json({ message: "認証エラー: トークンが必要です" });//トークンがない場合、エラーメッセージを返す
     }
     try {
         const secretKey = new TextEncoder().encode("my_secret_key")//シークレットキーをエンコード
-        //const decodedJwt = await jwtVerify(token, secretKey);//トークンを検証
+        const decodedJwt = await jwtVerify(token, secretKey);//トークンを検証
         
         return NextResponse.next();//トークンが有効な場合、リクエストを次に進める
     } catch {
@@ -18,5 +18,5 @@ export async function middleware(request) {
 }
 // ミドルウェアの設定
 export const config = {
-    matcher: ["/api/item/create", "/api/item/update/:path*", "/api/item/delete/:path*"],
+    matcher: ["/api/item/create", "/api/item/update/:path*", "/api/item/delete/:path*"],//特定のパスに対してミドルウェアを適用
 };

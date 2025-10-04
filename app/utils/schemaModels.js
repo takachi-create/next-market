@@ -1,8 +1,10 @@
 import mongoose from 'mongoose';
 
-const schema = mongoose.Schema
+//スキーマの定義
+const { Schema } = mongoose
+
 //アイテムスキーマの定義
-const itemSchema = new schema({
+const itemSchema = new Schema({
   title: String,
   image: String,
   price: String,
@@ -10,7 +12,7 @@ const itemSchema = new schema({
   email: String,
 });
 //ユーザースキーマの定義
-const userSchema = new schema({
+const userSchema = new Schema({
 
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },

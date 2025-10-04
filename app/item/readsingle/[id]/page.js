@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { use } from "react";
 
 
 const getSingleItem = async (id) => {
@@ -7,9 +9,9 @@ const getSingleItem = async (id) => {
     const singleItem = await json.data;//データ部分を抽出
     return singleItem;
 }
-const ReadSingleItem = async({params}) => {
-    const { id } = await params;//URLパラメータからIDを取得
-    const singleItem = await getSingleItem(id)//IDに基づいて単一商品のデータを取得
+const ReadSingleItem = ({params}) => {
+    const { id } = use(params);//paramsはプロミスであるため、useフックを使用して解決
+    const singleItem = use(getSingleItem(id))//IDに基づいて単一商品のデータを取得
     console.log("ログ:", singleItem);
     return (
         <div>
@@ -21,6 +23,10 @@ const ReadSingleItem = async({params}) => {
                 <h3>{singleItem.price}</h3>
                 <hr/>
                 <p>{singleItem.description}</p>
+                    <div>
+                       <Link href={`/item/update/${singleItem.id}`}>編集</Link>
+                       <Link href={`/item/delete/${singleItem.id}`}>削除</Link>
+                    </div>
             </div>
         </div>
     )
