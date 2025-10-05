@@ -8,7 +8,7 @@ export async function PUT(request,{params}){
         await connectDB();
         const { id } = await params;
         const singleItem = await ItemModel.findById(id);//指定されたIDのアイテムを取得
-        if(singleItem.email === reqBody.email) {
+        if(singleItem.email === reqBody.email) {//リクエストボディのメールアドレスとアイテムのメールアドレスが一致する場合に更新を許可
            await ItemModel.updateOne({ _id: id }, reqBody);//指定されたIDのアイテムを更新
            return NextResponse.json({ message: "アイテム更新成功" });//成功メッセージを返す    
         } else {

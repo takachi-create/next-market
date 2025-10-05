@@ -1,10 +1,12 @@
 "use client"
 import{ useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Register = () => {
   const [name, setName] = useState("");//名前の状態を管理するためのstate
   const [email, setEmail] = useState("");//メールアドレスの状態を管理するためのstate
   const [password, setPassword] = useState("");//パスワードの状態を管理するためのstate
+  const router = useRouter();
   
   const handleSubmit = async(e) =>{
     e.preventDefault(); // フォームのデフォルトの送信動作を防ぐ
@@ -23,6 +25,10 @@ const Register = () => {
       })
       const jsonData = await response.json();//レスポンスをJSON形式でパース
       alert(jsonData.message);//サーバーからのメッセージをアラートで表示
+      if (jsonData.token) {//トークンが存在する場合
+        router.push("/");//登録成功後にログインページにリダイレクト
+      }
+      
     }
     catch{
       alert("登録に失敗しました")

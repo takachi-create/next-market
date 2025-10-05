@@ -20,5 +20,5 @@ const userSchema = new Schema({
 
 });
 
-export const ItemModel = mongoose.models.Item || mongoose.model('Item', itemSchema);
-export const UserModel = mongoose.models.User || mongoose.model('User', userSchema);
+export const ItemModel = mongoose.models.Item || mongoose.model('Item', itemSchema);//すでにモデルが存在する場合はそれを使用し、存在しない場合は新たに作成
+export const UserModel = mongoose.models.User || mongoose.model('User', userSchema);  //すでにモデルが存在する場合はそれを使用し、存在しない場合は新たに作成
