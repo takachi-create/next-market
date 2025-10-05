@@ -14,7 +14,7 @@ const ReadSingleItem = ({params}) => {
     const singleItem = use(getSingleItem(id))//IDに基づいて単一商品のデータを取得
     console.log("ログ:", singleItem);
     return (
-        <div>
+        <div  className="grid-container-si">
             <div>
                 <Image src={singleItem.image} alt="商品画像" width={700} height={500}/>
             </div>

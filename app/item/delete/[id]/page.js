@@ -3,6 +3,7 @@ import { useState,useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { use } from "react";
 import Image from "next/image";
+import useAuth from "../../../utils/useAuth";
 
 //商品削除ページのコンポーネント
 const DeleteItem = ({ params }) => {//ReactのuseStateフックを使用して、フォームの各フィールドの状態を管理
@@ -13,6 +14,7 @@ const DeleteItem = ({ params }) => {//ReactのuseStateフックを使用して�
     const [description, setDescription] = useState("");
     const [email, setEmail] = useState("");
     const router = useRouter();//Next.jsのuseRouterフックを使用して、ページのナビゲーションを制御
+    const loginUserEmail = useAuth();//カスタムフックを使用して認証状態を取得
 
     //商品情報を取得するための副作用フック
     useEffect(() => {
@@ -42,7 +44,7 @@ const DeleteItem = ({ params }) => {//ReactのuseStateフックを使用して�
                     "Content-Type": "application/json",//送信するデータがJSON形式であることを示す
                     "Authorization": `Bearer ${localStorage.getItem("token")}`//認証トークンをヘッダーに含める
                 },
-                body: JSON.stringify({ title, price, image, description, email:"ダミーアドレス" })//フォームデータをJSON形式で送信 表記はショートハンド構文
+                body: JSON.stringify({ email:loginUserEmail })//フォームデータをJSON形式で送信 表記はショートハンド構文
             });
             const json = await response.json();
             alert(json.message);
@@ -52,20 +54,24 @@ const DeleteItem = ({ params }) => {//ReactのuseStateフックを使用して�
             alert("削除失敗");
         }
     }//フォームの送信を処理する関数
-  return (
-    <div>
-        <h1>商品削除ページ</h1>
-        <form onSubmit={handleSubmit}>{/*フォームの送信イベントにhandleSubmit関数をバインド*/}
-            <h2>{title}</h2>
-            <Image src={image} alt={title} width={200} height={200} />
-            <p>{price}</p>
-            <p>{description}</p>
-            <p>出品者:{email}</p>
-            <button>削除</button>
-        </form>
-    </div>
-  )
+    if(loginUserEmail === email){
+      return (
+        <div>
+            <h1 className="page-title">商品削除ページ</h1>
+            <form onSubmit={handleSubmit}>{/*フォームの送信イベントにhandleSubmit関数をバインド*/}
+                <h2>{title}</h2>
+                <Image src={image} alt={title} width={200} height={200} />
+                <p>{price}</p>
+                <p>{description}</p>
+                <p>出品者:{email}</p>
+                <button>削除</button>
+            </form>
+        </div>
+      )
 
-}
+    }else{
+      return <p>権限がありません</p>
+    }
+  }
 
 export default DeleteItem

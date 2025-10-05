@@ -32,19 +32,20 @@ const CreateItem = () => {//ReactのuseStateフックを使用して、フォー
             alert("商品登録失敗");
         }
     }//フォームの送信を処理する関数
-  return (
-    <div>
-        <h1>商品登録ページ</h1>
-        <form onSubmit={handleSubmit}>{/*フォームの送信イベントにhandleSubmit関数をバインド*/}
-            <input value={title} onChange={(e) => setTitle(e.target.value)} type="text" name="title" placeholder="商品名"  required/>
-            <input value={price} onChange={(e) => setPrice(e.target.value)} type="text" name="price" placeholder="価格" required/>
-            <input value={image} onChange={(e) => setImage(e.target.value)} type="text" name="image" placeholder="画像URL" required/>
-            <textarea value={description} onChange={(e) => setDescription(e.target.value)} name="description" placeholder="商品説明" required rows={15}></textarea>
-            <button>登録</button>
-        </form>
-    </div>
-  )
-
+    if(loginUserEmail){//ログインしている場合のみ商品登録フォームを表示
+        return (
+            <div>
+                <h1 className="page-title">商品登録ページ</h1>
+                <form onSubmit={handleSubmit}>{/*フォームの送信イベントにhandleSubmit関数をバインド*/}
+                    <input value={title} onChange={(e) => setTitle(e.target.value)} type="text" name="title" placeholder="商品名"  required/>
+                    <input value={price} onChange={(e) => setPrice(e.target.value)} type="text" name="price" placeholder="価格" required/>
+                    <input value={image} onChange={(e) => setImage(e.target.value)} type="text" name="image" placeholder="画像URL" required/>
+                    <textarea value={description} onChange={(e) => setDescription(e.target.value)} name="description" placeholder="商品説明" required rows={15}></textarea>
+                    <button>登録</button>
+                </form>
+            </div>)
+        
+    }
 }
 
 export default CreateItem
