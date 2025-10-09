@@ -3,7 +3,7 @@ import image from "next/image";
 
 //APIから全商品のデータを取得
 const getAllItems = async () => {
-  const response = await fetch("http://localhost:3000/api/item/readall", { cache: 'no-store' });
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/item/readall`, { cache: 'no-store' });//`'
   const json = await response.json();
   const allitems = json.allitems;
   return allitems;

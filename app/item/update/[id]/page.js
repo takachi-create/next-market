@@ -18,7 +18,7 @@ const UpdateItem = ({ params }) => {//ReactのuseStateフックを使用して�
     //商品情報を取得するための副作用フック
     useEffect(() => {
       const getSingleItem = async (id) => {
-        const response = await fetch(`http://localhost:3000/api/item/readsingle/${id}`,{cache: 'no-store'});//キャッシュを使わない
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/item/readsingle/${id}`,{cache: 'no-store'});//キャッシュを使わない
         const json = await response.json();//JSON形式でレスポンスを取得
         const singleItem = await json.data;//データ部分を抽出
         setTitle(singleItem.title);//フォームの各フィールドにデータをセット
@@ -36,7 +36,7 @@ const UpdateItem = ({ params }) => {//ReactのuseStateフックを使用して�
     const handleSubmit = async (e) => {
         e.preventDefault();//フォームのデフォルトの送信動作を防止
         try{
-            const response = await fetch(`http://localhost:3000/api/item/update/${id}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/item/update/${id}`, {
                 method: "PUT",//HTTPメソッドをPUTに設定
                 headers: {
                     "Accept": "application/json",//サーバーがJSON形式のデータを受け入れることを示す

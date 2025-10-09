@@ -15,7 +15,7 @@ const CreateItem = () => {//ReactのuseStateフックを使用して、フォー
     const handleSubmit = async (e) => {
         e.preventDefault();//フォームのデフォルトの送信動作を防止
         try{
-            const response = await fetch("http://localhost:3000/api/item/create", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/item/create`, {
                 method: "POST",
                 headers: {
                     "Accept": "application/json",//サーバーがJSON形式のデータを受け入れることを示す

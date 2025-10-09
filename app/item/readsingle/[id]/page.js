@@ -4,7 +4,7 @@ import { use } from "react";
 
 
 const getSingleItem = async (id) => {
-   const response = await fetch(`http://localhost:3000/api/item/readsingle/${id}`,{cache: 'no-store'});//キャッシュを使わない
+   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/item/readsingle/${id}`,{cache: 'no-store'});//キャッシュを使わない
     const json = await response.json();//JSON形式でレスポンスを取得
     const singleItem = await json.data;//データ部分を抽出
     return singleItem;

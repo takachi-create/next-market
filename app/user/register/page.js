@@ -11,7 +11,7 @@ const Register = () => {
   const handleSubmit = async(e) =>{
     e.preventDefault(); // フォームのデフォルトの送信動作を防ぐ
     try{
-      const response = await fetch("http://localhost:3000/api/user/register",{//fetch関数を使ってAPIエンドポイントにPOSTリクエストを送信
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/register`,{//fetch関数を使ってAPIエンドポイントにPOSTリクエストを送信
         method:"POST",//HTTPメソッドを指定
         headers:{//リクエストヘッダーを指定
           "Accept":"application/json",//サーバーにJSON形式のレスポンスを期待することを示す
