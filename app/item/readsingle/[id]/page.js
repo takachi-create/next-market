@@ -2,13 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { use } from "react";
 
-
+//IDに基づいて単一商品のデータを取得する非同期関数
 const getSingleItem = async (id) => {
    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/item/readsingle/${id}`,{cache: 'no-store'});//キャッシュを使わない
     const json = await response.json();//JSON形式でレスポンスを取得
     const singleItem = await json.data;//データ部分を抽出
     return singleItem;
 }
+
+//コンポーネントの定義
 const ReadSingleItem = ({params}) => {
     const { id } = use(params);//paramsはプロミスであるため、useフックを使用して解決
     const singleItem = use(getSingleItem(id))//IDに基づいて単一商品のデータを取得
